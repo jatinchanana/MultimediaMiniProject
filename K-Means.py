@@ -2,9 +2,9 @@ import cv2
 import numpy as np
 import operator as op
 import random
-img=cv2.imread(r"C:\Users\jatin\OneDrive\Desktop\Project1-images\Project1-images\t1.jpg")
-img1=cv2.imread(r"C:\Users\jatin\OneDrive\Desktop\Project1-images\Project1-images\t1.jpg")
-def Random(img,k):
+img=cv2.imread(r"Project1-images\t1.jpg")
+img1=cv2.imread(r"Project1-images\t1.jpg")
+def Random(img,k):  # Randomly select K initial cluster points from the image
     p = []
     img2 = img.reshape(img.shape[0]*img.shape[1],3)
     U_element = np.unique(img2, axis=0)
@@ -12,9 +12,8 @@ def Random(img,k):
     for i in range(len(rand)):
         p.append(U_element[rand[i]])
     return p
-def Clusters(point,img):
+def Clusters(point,img):  # find the Euclidean distance of all the pixels and create a list of clusters
     Box = [[] for i in range(len(point))]
-    #Dict= {}
     for i in range(img.shape[0]):
         for j in range(img.shape[1]):
             ls  = []
@@ -23,7 +22,7 @@ def Clusters(point,img):
             ind = ls.index(min(ls))
             Box[ind].append(img[i][j])
             
-    return Box
+    return Box  # List of clusters
 def FindMean(Cl):
     lm = np.sum(Cl,axis = 0)/len(Cl)
     return lm
@@ -52,7 +51,7 @@ def Quantize(point,img):
             img[i][j] = point[ind]  
     
     return img
-point  = Random(img,4)
+point  = Random(img,2) # No. of clusters
 finalpoint = Kmeans(point)
 finalimage = Quantize(finalpoint,img1)
 cv2.imshow("Final image",finalimage)
