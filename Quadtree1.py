@@ -6,7 +6,7 @@ def Split(img):
     mu,std = cv2.meanStdDev(img)
     MSE=std**2  # Mean Square error
     MAE = MeanAsoluteError(img)
-    if(w >= 2 and h >=2 and th<=MSE):
+    if(w >= 2 and h >=2 and th<=MSE): # while the image is at least 2*2 and threshold is less than MSE or MAE split the image into 4 subimages
         Split(img[:int(w/2),:int(h/2)])
         Split(img[int(w/2):int(w),0:int(h/2)])
         Split(img[:int(w/2),int(h/2):int(h)])
